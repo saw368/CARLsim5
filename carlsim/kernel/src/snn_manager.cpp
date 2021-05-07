@@ -92,6 +92,25 @@ SNN::~SNN() {
 /// PUBLIC METHODS: SETTING UP A SIMULATION
 /// ************************************************************************************************************ ///
 
+
+// HERE <------
+int SNN::getStartId(int netId, int GrpId) {
+  return groupConfigs[netId][GrpId].lStartN;
+}
+int SNN::getEndId(int netId, int GrpId) {
+  return groupConfigs[netId][GrpId].lEndN;
+}
+int SNN::getGlobalGrpId(int netId, int lGrpId) {
+  return groupConfigs[netId][lGrpId].gGrpId;
+}
+int SNN::getLocalGrpId(int gGrpId) {
+  return groupConfigMDMap[gGrpId].lGrpId;
+}
+float SNN::getVoltage(int netId, int NeuronId) {
+  return runtimeData[netId].voltage[NeuronId];
+}
+
+
 // make from each neuron in grpId1 to 'numPostSynapses' neurons in grpId2
 short int SNN::connect(int grpId1, int grpId2, const std::string& _type, float initWt, float maxWt, float prob,
 						uint8_t minDelay, uint8_t maxDelay, RadiusRF radius,

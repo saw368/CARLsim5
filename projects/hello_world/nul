@@ -1,0 +1,42 @@
+[DEBUG carlsim/kernel/src/snn_manager.cpp:2114] Current local time and date: Mon Apr 19 18:38:49 2021
+
+[DEBUG carlsim/kernel/src/snn_manager.cpp:166] CONNECT SETUP: connId=0, mulFast=1.000000, mulSlow=1.000000
+[DEBUG carlsim/kernel/src/snn_manager.cpp:3553] Beginning compilation of the network....
+[DEBUG carlsim/kernel/src/snn_manager.cpp:2943] Allocation for 1(output), St=0, End=8
+[DEBUG carlsim/kernel/src/snn_manager.cpp:2943] Allocation for 0(input), St=9, End=125
+[DEBUG carlsim/kernel/src/snn_manager.cpp:2962] Allocation for group (output) [id:1, local id:0], St=0, End=8
+[DEBUG carlsim/kernel/src/snn_manager.cpp:2962] Allocation for group (input) [id:0, local id:1], St=9, End=125
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1984] copyExternalCurrent: lGrpId=-1, ptrPos=0, length=9, allocate=y
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1417] Transfering group settings to CPU:
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1419] Settings for Group output:
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1421] 	Type: 6
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1422] 	NumN: 9
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1423] 	M: 0
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1424] 	PreM: 1021
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1425] 	spikeGenerator: 0
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1426] 	FixedInputWts: 1
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1427] 	MaxDelay: 1
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1428] 	WithSTDP: 0
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1445] 	WithSTP: 0
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1451] 	spikeGen: is not set 
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1419] Settings for Group input:
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1421] 	Type: 7
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1422] 	NumN: 117
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1423] 	M: 1021
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1424] 	PreM: 0
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1425] 	spikeGenerator: 1
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1426] 	FixedInputWts: 1
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1427] 	MaxDelay: 1
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1428] 	WithSTDP: 0
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1445] 	WithSTP: 0
+[DEBUG carlsim/kernel/src/snn_cpu_module.cpp:1451] 	spikeGen: is not set 
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y
+[DEBUG carlsim/kernel/src/snn_manager.cpp:798] runNetwork: runDur=1000ms, printRunSummary=y

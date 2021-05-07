@@ -47,6 +47,8 @@
 * Ver 12/31/2016
 */
 
+#include <iostream> // HERE <------
+
 #include <snn.h>
 
 #include <spike_buffer.h>
@@ -385,7 +387,7 @@ void SNN::copyExtFiringTable(int netId) {
 			assert(synId < (runtimeData[netId].Npre[postNId]));
 
 			if (postNId < networkConfigs[netId].numN) // test if post-neuron is a local neuron
-				generatePostSynapticSpike(lNId /* preNId */, postNId, synId, 0, netId);
+        generatePostSynapticSpike(lNId /* preNId */, postNId, synId, 0, netId);
 		}
 
 		k = k - 1;
@@ -881,8 +883,16 @@ float dudtIzhikevich9(float volt, float recov, float voltRest, float izhA, float
 // single integration step for voltage equation of LIF neurons
 inline
 float dvdtLIF(float volt, float lif_vReset, float lif_gain, float lif_bias, int lif_tau_m, float totalCurrent, float timeStep = 1.0f) {
-	return ((lif_vReset -volt + ((totalCurrent * lif_gain) + lif_bias))/ (float) lif_tau_m) * timeStep;
-}
+	//return ((lif_vReset -volt + ((totalCurrent * lif_gain) + lif_bias))/ (float) lif_tau_m) * timeStep;
+  return (totalCurrent / ((float) lif_tau_m * lif_gain)) * timeStep;
+//  std::cout << "---------------------" << std::endl;
+//  std::cout << "dVdt: " << xyz << std::endl;
+//  std::cout << "totalCurrent: " << totalCurrent << std::endl;
+//  std::cout << "lif_tau_m: " << lif_tau_m << std::endl;
+//  std::cout << "lif_gain: " << lif_gain << std::endl;
+//  std::cout << "timeStep: " << timeStep << std::endl;
+//  return xyz;
+} // HERE <------
 
 float SNN::getCompCurrent(int netid, int lGrpId, int lneurId, float const0, float const1) {
 	float compCurrent = 0.0f;
@@ -950,6 +960,8 @@ float SNN::getCompCurrent(int netid, int lGrpId, int lneurId, float const0, floa
 
 				float totalCurrent = runtimeData[netId].extCurrent[lNId];
 
+        //if (v != 0) std::cout << v << std::endl; // HERE <------
+
 				if (networkConfigs[netId].sim_with_conductances) {
 					NMDAtmp = (v + 80.0f) * (v + 80.0f) / 60.0f / 60.0f;
 					gNMDA = (networkConfigs[netId].sim_with_NMDA_rise) ? (runtimeData[netId].gNMDA_d[lNId] - runtimeData[netId].gNMDA_r[lNId]) : runtimeData[netId].gNMDA[lNId];
@@ -995,19 +1007,22 @@ float SNN::getCompCurrent(int netid, int lGrpId, int lneurId, float const0, floa
 					}
 
 					else{
+            //std::cout << v << std::endl; // HERE <------
 						if (lif_tau_ref_c > 0){
 							if(lastIter){
 								runtimeData[netId].lif_tau_ref_c[lNId] -= 1;
-								v_next = lif_vReset;
-							}
+								//v_next = lif_vReset;
+							  v_next = v; // HERE <------
+              }
 						}
 						else{
 							if (v_next > lif_vTh) {
 								runtimeData[netId].curSpike[lNId] = true;
-								v_next = lif_vReset;
+								//v_next = lif_vReset;
+                v_next -= lif_vTh; // HERE <------
 
 								if(lastIter){
-                                        				runtimeData[netId].lif_tau_ref_c[lNId] = lif_tau_ref;
+                  runtimeData[netId].lif_tau_ref_c[lNId] = lif_tau_ref;
 								}
 								else{
 									runtimeData[netId].lif_tau_ref_c[lNId] = lif_tau_ref + 1;
@@ -1020,7 +1035,7 @@ float SNN::getCompCurrent(int netid, int lGrpId, int lneurId, float const0, floa
 					}
 
 					if (groupConfigs[netId][lGrpId].isLIF){
-						if (v_next < lif_vReset) v_next = lif_vReset;
+						if (v_next < lif_vReset) {;} // v_next = lif_vReset; // HERE <------
 					}
 					else{
 						if (v_next < -90.0f) v_next = -90.0f;
@@ -1100,13 +1115,15 @@ float SNN::getCompCurrent(int netid, int lGrpId, int lneurId, float const0, floa
 						if (lif_tau_ref_c > 0){
 							if(lastIter){
 								runtimeData[netId].lif_tau_ref_c[lNId] -= 1;
-								v_next = lif_vReset;
-							}
+								//v_next = lif_vReset;
+							  v_next = v;
+              }
 						}
 						else{
 							if (v_next > lif_vTh) {
 								runtimeData[netId].curSpike[lNId] = true;
-								v_next = lif_vReset;
+								//v_next = lif_vReset;
+                v_next -= lif_vTh;
 
 								if(lastIter){
                                         				runtimeData[netId].lif_tau_ref_c[lNId] = lif_tau_ref;
@@ -1119,7 +1136,7 @@ float SNN::getCompCurrent(int netid, int lGrpId, int lneurId, float const0, floa
 								v_next = v + dvdtLIF(v, lif_vReset, lif_gain, lif_bias, lif_tau_m, totalCurrent, timeStep);
 							}
 						}
-						if (v_next < lif_vReset) v_next = lif_vReset;
+						if (v_next < lif_vReset) {;}//v_next = lif_vReset;
 					}
 					break;
 				case UNKNOWN_INTEGRATION:

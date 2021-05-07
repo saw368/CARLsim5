@@ -76,6 +76,7 @@
 #ifndef _SNN_GOLD_H_
 #define _SNN_GOLD_H_
 
+
 #include <map>
 #include <list>
 #include <cmath>
@@ -132,6 +133,30 @@ public:
 	 * \brief clean up all allocated resource
 	 */
 	~SNN();
+
+  // HERE <------
+  void advSimStep();
+  // HERE <------
+  void fetchNeuronSpikeCount(int gGrpId);
+  // HERE <------
+  void shiftSpikeTables();
+  // HERE <------
+  void resetSpikeCnt(int gGrpId);
+  // HERE <------
+//  RuntimeData* getRuntimeData() {dd
+//    return runtimeData;
+//  };
+  // HERE <------
+  int getStartId(int netId, int GrpId);
+  // HERE <------
+  int getEndId(int netId, int GrpId);
+  // HERE <------
+  int getGlobalGrpId(int netId, int lGrpId);
+  // HERE <------
+  int getLocalGrpId(int gGrpId);
+  // HERE <------
+  float getVoltage(int netId, int NeuronId);
+
 
 	// +++++ PUBLIC PROPERTIES ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
 
@@ -649,8 +674,9 @@ private:
 	//! all unsafe operations of constructor
 	void SNNinit();
 
+  // HERE <------
 	//! advance time step in a simulation
-	void advSimStep();
+	//void advSimStep();
 
 	//! allocates and initializes all core datastructures
 	void allocateManagerRuntimeData();
@@ -804,8 +830,10 @@ private:
 	void deleteRuntimeData();
 	void findFiring();
 	void globalStateUpdate();
-	void resetSpikeCnt(int gGrpId);
-	void shiftSpikeTables();
+	// HERE <------
+  //void resetSpikeCnt(int gGrpId);
+	// HERE <------
+  //void shiftSpikeTables();
 	void spikeGeneratorUpdate();
 	void updateTimingTable();
 	void updateWeights();
@@ -817,7 +845,8 @@ private:
 	void fetchConductanceGABAa(int gGrpId);
 	void fetchConductanceGABAb(int gGrpId);
 	void fetchNetworkSpikeCount();
-	void fetchNeuronSpikeCount(int gGrpId);
+	// HERE <------
+  //void fetchNeuronSpikeCount(int gGrpId);
 	void fetchSTPState(int gGrpId);
 
 	// Abstract layer for trasferring data (local-to-local copy)
@@ -1166,6 +1195,7 @@ private:
 	ConnectionMonitorCore* connMonCoreList[MAX_CONN_PER_SNN];
 	ConnectionMonitor*     connMonList[MAX_CONN_PER_SNN];
 
+  // HERE <------
 	RuntimeData runtimeData[MAX_NET_PER_SNN];
 	RuntimeData managerRuntimeData;
 
@@ -1189,7 +1219,7 @@ private:
 
 	// runtime configurations
 	NetworkConfigRT networkConfigs[MAX_NET_PER_SNN]; //!< the network configs used on GPU(s);
-	GroupConfigRT	groupConfigs[MAX_NET_PER_SNN][MAX_GRP_PER_SNN];
+  GroupConfigRT	groupConfigs[MAX_NET_PER_SNN][MAX_GRP_PER_SNN];
 	ConnectConfigRT connectConfigs[MAX_NET_PER_SNN][MAX_CONN_PER_SNN]; //!< for future use
 
 	// weight update parameter

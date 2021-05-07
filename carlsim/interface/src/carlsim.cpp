@@ -128,6 +128,56 @@ public:
 
 	// +++++++++ PUBLIC METHODS: SETTING UP A SIMULATION ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
 
+  // HERE <------
+  SNN* getSNN() {
+    return snn_;
+  }
+//  // HERE <------
+//  void advSimStep() {
+//    snn_->advSimStep();
+//    return;
+//  }
+//  // HERE <------
+//  void fetchNeuronSpikeCount(int gGrpId) {
+//    snn_->fetchNeuronSpikeCount(gGrpId);
+//    return;
+//  }
+//  // HERE <------
+//  void shiftSpikeTables() {
+//    snn_->shiftSpikeTables();
+//    return;
+//  }
+//  // HERE <------
+//  void resetSpikeCnt(int gGrpId) {
+//    snn_->resetSpikeCnt(gGrpId);
+//    return;
+//  }
+//  // HERE <------
+//  float getVoltage(int netId, int NeuronId) {
+//    return snn_->runtimeData[netId].voltage[NeuronId];
+//  }
+//  // HERE <------
+//  int getStartId(int netId, int GrpId) {
+//    return snn_->getStartId(netId, GrpId);
+//  }
+//  // HERE <------
+//  int getEndId(int netId, int GrpId) {
+//    return snn_->getEndId(netId, GrpId);
+//  }
+//  // HERE <------
+//  int getLocatlGrpId(int gGrpId) {
+//    return snn_->getLocalGrpId(gGrpId);
+//  }
+//  // HERE <------
+//  int getGlobalGrpId(int netId, int lGrpId) {
+//    return snn_->getGlobalGrpId(netId, lGrpId);
+//  }
+//  // HERE <------
+//  short int getConnectId(int grpIdPre, int grpIdPost) {
+//    return snn_->getConnectId(grpIdPre, grpIdPost);
+//  }
+
+
 	// Connects a presynaptic to a postsynaptic group using one of the primitive types
 	short int connect(int grpId1, int grpId2, const std::string& connType, const RangeWeight& wt, float connProb,
 			const RangeDelay& delay, const RadiusRF& radRF, bool synWtType, float mulSynFast, float mulSynSlow)
@@ -616,7 +666,7 @@ public:
 	// set neuron parameters for LIF spiking neuron
 	void setNeuronParametersLIF(int grpId, int tau_m, int tau_ref, float vTh, float vReset, const RangeRmem& rMem)
 	{
-		std::string funcName = "setNeuronParametersLIF(\"" + getGroupName(grpId) + "\")";
+    std::string funcName = "setNeuronParametersLIF(\"" + getGroupName(grpId) + "\")";
 		UserErrors::assertTrue(!isPoissonGroup(grpId), UserErrors::WRONG_NEURON_TYPE, funcName, funcName);
 		UserErrors::assertTrue(carlsimState_ == CONFIG_STATE, UserErrors::CAN_ONLY_BE_CALLED_IN_STATE, funcName, funcName, "CONFIG.");
 
@@ -1735,6 +1785,11 @@ pthread_mutex_t CARLsim::Impl::gpuAllocationLock = PTHREAD_MUTEX_INITIALIZER;
 CARLsim::CARLsim(const std::string& netName, SimMode preferredSimMode, LoggerMode loggerMode, int ithGPUs, int randSeed) : 
 _impl( new Impl(this, netName, preferredSimMode, loggerMode, randSeed) ) {}
 CARLsim::~CARLsim() { delete _impl; }
+
+// HERE <------
+SNN* CARLsim::getSNN() {
+  return _impl->getSNN();
+}
 
 // connect with primitive type
 short int CARLsim::connect(int grpId1, int grpId2, const std::string& connType, const RangeWeight& wt, float connProb,

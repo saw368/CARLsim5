@@ -176,8 +176,31 @@ public:
 	~CARLsim();
 
 
-
 	// +++++ PUBLIC METHODS: SETTING UP A SIMULATION ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
+
+  // HERE <------
+  SNN* getSNN();
+//  // HERE <------
+//  void advSimStep();
+//  // HERE <------
+//  void fetchNeuronSpikeCount(int gGrpId);
+//  // HERE <------
+//  void shiftSpikeTables();
+//  // HERE <------
+//  void resetSpikeCnt(int gGrpId);
+//  // HERE <------
+//  float getVoltage(int netId, int NeuronId);
+//  // HERE <------
+//  int getStartId(int netId, int GrpId);
+//  // HERE <------
+//  int getEndId(int netId, int GrpId);
+//  // HERE <------
+//  int getLocalGrpId(int gGrpId);
+//  // HERE <------
+//  int getGlobalGrpId(int netId, int lGrpId);
+//  // HERE <------
+//  short int getConnectId(int grpIdPre, int grpIdPost);
+
 
 	/*!
 	 * \brief Connects a presynaptic to a postsynaptic group using fixed/plastic weights and a range of delay values
